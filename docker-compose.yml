@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  mongo-primary:
+      image: mongo
+      hostname: rs01primary
+      volumes:
+        - ./data/db:/data/db
+        - ./data/log:/data/log
+        - mongo.conf:/etc/mongo.conf
+      ports:
+          - "27017:27017"
+      networks:
+        mongobrd:
+          ipv4_address: 172.16.238.4
+networks:
+  mongobrd:
+    driver: bridge
+    ipam:
+      config:
+       - subnet: 172.16.238.0/24
+         gateway: 172.16.238.1
